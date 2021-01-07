@@ -21,7 +21,7 @@ type User {
     Age:Int!
     Password:String!
     posts:[Post!]!
-    comments:[Comment!]!
+    comments:[Comment!]
 }
 
 type Post {
@@ -29,9 +29,10 @@ type Post {
     Title:String!
     Body:String!
     Image:String!
-    Likes:Int
+    Likes:[User!]!
     user:User!
-    comments:[Comment!]!
+    comments:[Comment!]
+
 }
 
 type Comment {
@@ -40,4 +41,5 @@ type Comment {
     user:User!
     post:Post!
 }
+
 `

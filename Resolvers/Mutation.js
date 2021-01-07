@@ -32,7 +32,7 @@ export const Mutation={
     async createPost(parent,args,ctx,info){
         console.log("HERE")
         if(ctx.data){
-            let post=new PostModel({title:args.title,body:args.body,image:args.Image,Likes:0,user:ctx.data._id,comments:[]}) 
+            let post=new PostModel({title:args.title,body:args.body,image:args.Image,Likes:[],user:ctx.data._id,comments:[]}) 
             let res=await post.save()
             return {Title:res.title,_id:res._id,Body:res.body,Image:res.image,Likes:res.Likes,USERID:res.user}
         }
@@ -47,9 +47,12 @@ export const Mutation={
             let post=await PostModel.findOne({_id:args.id})
             post=post.toJSON()
             console.log(post)
-            if(post){
-                await PostModel.findByIdAndUpdate({_id:args.id},{Likes:post.Likes+1})
-                return {Title:post.title,_id:post._id,Body:post.body,Image:post.image,Likes:post.Likes+1,USERID:post.user}
+            if(!post.Likes.includes(ctx.data._id)){
+                await PostModel.findByIdAndUpdate({_id:args.id},{Likes:[...post.Likes,ctx.data._id]})
+                return {Title:post.title,_id:post._id,Body:post.body,Image:post.image,Likes:[...post.Likes,ctx.data._id],USERID:post.user}
+            }
+            else{
+                return {Title:post.title,_id:post._id,Body:post.body,Image:post.image,Likes:[...post.Likes],USERID:post.user}
             }
         }
         else{
@@ -60,10 +63,12 @@ export const Mutation={
         if(ctx.data){
             let post=await PostModel.findOne({_id:args.id})
             post=post.toJSON()
-            console.log(post)
+            let ind=post.Likes.indexOf(ctx.data._id)
+            let temp=[...post.Likes]
+            temp.splice(ind,1)
             if(post){
-                await PostModel.findByIdAndUpdate({_id:args.id},{Likes:post.Likes-1})
-                return {Title:post.title,_id:post._id,Body:post.body,Image:post.image,Likes:post.Likes-1,USERID:post.user}
+                await PostModel.findByIdAndUpdate({_id:args.id},{Likes:temp})
+                return {Title:post.title,_id:post._id,Body:post.body,Image:post.image,Likes:temp,USERID:post.user}
             }
         }
         else{
