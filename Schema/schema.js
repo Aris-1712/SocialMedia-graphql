@@ -12,6 +12,7 @@ type Mutation {
     createPost(title:String!,body:String!,Image:String!):Post!
     likePost(id:String!):Post!
     dislikePost(id:String!):Post!
+    createComment(text:String!,pid:String!):Comment!
 }
 
 type User {

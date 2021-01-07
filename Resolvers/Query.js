@@ -20,7 +20,7 @@ export const Query={
                 Image:element.image,
                 Body:element.body,
                 Likes:element.Likes,
-                _id:element._id
+                _id:element._id,USERID:element.user
                 }
                 data.push(post)
             });

@@ -2,6 +2,7 @@ import UserDB from '../DbModels/UserDB'
 import Bcrypt from 'bcrypt'
 import {signing} from '../Authorization'
 import PostModel from '../DbModels/PostDB'
+import CommentModel from '../DbModels/CommentDB'
 import { Post } from './Post'
 export const Mutation={
     async createUser(parent,args,ctx,info){
@@ -39,9 +40,23 @@ export const Mutation={
         else{
             throw new Error("Please provide Token")
         }
-        
-
     },
+    async createComment(parent,args,ctx,info){
+        if(ctx.data){
+            let data={
+                Text:args.text,
+                USERID:ctx.data._id,
+                POSTID:args.pid
+            }
+            let comment=new CommentModel(data)
+            await comment.save() 
+            return data
+        }
+        else{
+            throw new Error("Please provide Token")
+        }
+    }
+    ,
     async likePost(parent,args,ctx,info){
         if(ctx.data){
             let post=await PostModel.findOne({_id:args.id})
