@@ -23,6 +23,8 @@ type User {
     Password:String!
     posts:[Post!]!
     comments:[Comment!]
+    likes:[Post!]
+  
 }
 
 type Post {

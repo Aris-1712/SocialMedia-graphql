@@ -6,13 +6,14 @@ import {Query} from './Resolvers/Query'
 import {typeDefs} from './Schema/schema'
 import {verify} from './Authorization'
 import {Post} from './Resolvers/Post'
+import {User} from './Resolvers/User'
 import {Comment} from './Resolvers/comment'
 mongoose.connect('mongodb+srv://aris:Arisgani1712@cluster0.ik8yo.mongodb.net/SocialMedia?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
  console.log("connected to db")
 
  const server = new ApolloServer({
     typeDefs:typeDefs,
-    resolvers:{Mutation,Query,Post,Comment},
+    resolvers:{Mutation,Query,Post,Comment,User},
     context:({req})=>{
     if(req.headers['x-auth-token']){
     let payLoad=verify(req.headers['x-auth-token'])
