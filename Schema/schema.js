@@ -13,6 +13,8 @@ type Mutation {
     likePost(id:String!):Post!
     dislikePost(id:String!):Post!
     createComment(text:String!,pid:String!):Comment!
+    follow(id:String!):String!
+    unfollow(id:String!):String!
 }
 
 type User {
@@ -24,7 +26,8 @@ type User {
     posts:[Post!]!
     comments:[Comment!]
     likes:[Post!]
-  
+    followers:[User!]
+    following:[User!]
 }
 
 type Post {

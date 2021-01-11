@@ -90,6 +90,51 @@ export const Mutation={
             throw new Error("Please provide Token")
         }
     },
+    async follow(parent,args,ctx,info){
+        if(ctx.data){
+            console.log(args)
+            let data=await UserDB.findOne({_id:args.id})
+            
+            let user=data.toJSON()
+            user.followers=[...user.followers,ctx.data._id]
+            await UserDB.findByIdAndUpdate({_id:args.id},{followers:user.followers})
+            // 
+            let dataCurrent=await UserDB.findOne({_id:ctx.data._id})
+            let currentUser=dataCurrent.toJSON()
+            currentUser.following=[...currentUser.following,args.id]
+            await UserDB.findByIdAndUpdate({_id:ctx.data._id},{following:currentUser.following})
+            return "Success"
+        }   
+    },
+    async unfollow(parent,args,ctx,info){
+        if(ctx.data){
+            console.log(args)
+            let data=await UserDB.findOne({_id:args.id})
+            let delind=null
+            let user=data.toJSON()
+            user.followers.forEach((element,index) => {
+                if(element===ctx.data._id){
+                    delind=index
+                }
+            });
+            user.followers.splice(delind,1)
+            // user.followers=[...user.followers,ctx.data._id]
+            await UserDB.findByIdAndUpdate({_id:args.id},{followers:user.followers})
+            // 
+            let dataCurrent=await UserDB.findOne({_id:ctx.data._id})
+            let currentUser=dataCurrent.toJSON()
+            // currentUser.following=[...currentUser.following,args.id]
+            let delindUser=null
+            currentUser.following.forEach((ele,ind)=>{
+                if(ele===args.id){
+                    delindUser=ind
+                }
+            })
+            currentUser.following.splice(delindUser,1)
+            await UserDB.findByIdAndUpdate({_id:ctx.data._id},{following:currentUser.following})
+            return "Success"
+        }   
+    }
   
     
 }
