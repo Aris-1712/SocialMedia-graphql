@@ -15,6 +15,7 @@ mongoose.connect('mongodb+srv://aris:Arisgani1712@cluster0.ik8yo.mongodb.net/Soc
     typeDefs:typeDefs,
     resolvers:{Mutation,Query,Post,Comment,User},
     context:({req})=>{
+        console.log(req.headers)
     if(req.headers['x-auth-token']){
     let payLoad=verify(req.headers['x-auth-token'])
     return payLoad

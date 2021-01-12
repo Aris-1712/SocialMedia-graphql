@@ -68,7 +68,7 @@ export const User = {
         data.forEach((ele) => {
             if (user.followers.includes((ele._id).toString())) {
                 let temp = {
-                    Name: ele.name, Age: ele.Age, email: ele.email, _id: ele._id
+                    Name: ele.name, Age: ele.Age, email: ele.email, _id: ele._id,image:ele.image
                 }
                 final.push(temp)
             }
@@ -88,7 +88,7 @@ export const User = {
         data.forEach((ele) => {
             if (user.following.includes((ele._id).toString())) {
                 let temp = {
-                    Name: ele.name, Age: ele.Age, email: ele.email, _id: ele._id
+                    Name: ele.name, Age: ele.Age, email: ele.email, _id: ele._id,image:ele.image
                 }
                 final.push(temp)
             }

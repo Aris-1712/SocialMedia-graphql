@@ -14,7 +14,7 @@ export const Mutation={
         }
         let user=new UserDB({...args,password:hashedpass})
         let res=await user.save()
-        return {Name:res.name,Age:res.Age,email:res.email,_id:res._id}
+        return {Name:res.name,Age:res.Age,email:res.email,_id:res._id,image:res.image}
     },
     async signin(parent,args,ctx,info){
         let valid=await UserDB.findOne({email:args.email})
@@ -134,6 +134,13 @@ export const Mutation={
             await UserDB.findByIdAndUpdate({_id:ctx.data._id},{following:currentUser.following})
             return "Success"
         }   
+    },
+    async getPost(parent,args,ctx,info){
+        if(ctx.data){
+            let data=await PostModel.findOne({_id:args.id})
+            let post=data.toJSON()
+            return {Title:post.title,_id:post._id,Body:post.body,Image:post.image,Likes:post.Likes,USERID:post.user}
+        }
     }
   
     

@@ -7,7 +7,7 @@ type Query {
 }
 
 type Mutation {
-    createUser(email:String!,name:String!,Age:Int!,password:String!):User!
+    createUser(email:String!,name:String!,Age:Int!,password:String!,image:String):User!
     signin(email:String!,pass:String!):String!
     createPost(title:String!,body:String!,Image:String!):Post!
     likePost(id:String!):Post!
@@ -15,6 +15,7 @@ type Mutation {
     createComment(text:String!,pid:String!):Comment!
     follow(id:String!):String!
     unfollow(id:String!):String!
+    getPost(id:String!):Post!
 }
 
 type User {
@@ -28,6 +29,7 @@ type User {
     likes:[Post!]
     followers:[User!]
     following:[User!]
+    image:String
 }
 
 type Post {

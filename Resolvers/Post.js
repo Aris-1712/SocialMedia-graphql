@@ -4,7 +4,7 @@ export const Post={
    async user(parent,args,ctx,info){
         let data=await UserDB.findOne({_id:parent.USERID})
         let res=data.toJSON()
-        return {Name:res.name,Age:res.Age,email:res.email,_id:res._id}
+        return {Name:res.name,Age:res.Age,email:res.email,_id:res._id,image:res.image}
     },
    async Likes(parent,args,ctx,info){
     let res = await UserDB.find()
@@ -14,7 +14,7 @@ export const Post={
         res.forEach(ele => {
             let user=ele.toJSON()
             if(user._id==element){
-               let data= {Name:user.name,Age:user.Age,email:user.email,_id:user._id}
+               let data= {Name:user.name,Age:user.Age,email:user.email,_id:user._id,image:res.image}
                temp.push(data)
             }
         })
