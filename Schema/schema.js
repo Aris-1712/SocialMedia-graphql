@@ -9,10 +9,10 @@ type Query {
 type Mutation {
     createUser(email:String!,name:String!,Age:Int!,password:String!,image:String):User!
     signin(email:String!,pass:String!):String!
-    createPost(title:String!,body:String!,Image:String!):Post!
+    createPost(title:String!,body:String!,Image:String!,time:String!):Post!
     likePost(id:String!):Post!
     dislikePost(id:String!):Post!
-    createComment(text:String!,pid:String!):Comment!
+    createComment(text:String!,pid:String!,time:String!):Comment!
     follow(id:String!):String!
     unfollow(id:String!):String!
     getPost(id:String!):Post!
@@ -29,7 +29,7 @@ type User {
     likes:[Post!]
     followers:[User!]
     following:[User!]
-    image:String
+    image:String!
 }
 
 type Post {
@@ -40,12 +40,13 @@ type Post {
     Likes:[User!]!
     user:User!
     comments:[Comment!]
-
+    time:String
 }
 
 type Comment {
     id:ID!
     Text:String!
+    time:String
     user:User!
     post:Post!
 }

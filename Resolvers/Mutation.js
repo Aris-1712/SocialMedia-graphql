@@ -31,7 +31,7 @@ export const Mutation={
         }
     },
     async createPost(parent,args,ctx,info){
-        console.log("HERE")
+        // console.log("HERE")
         if(ctx.data){
             let post=new PostModel({title:args.title,body:args.body,image:args.Image,Likes:[],user:ctx.data._id,comments:[]}) 
             let res=await post.save()
@@ -46,7 +46,8 @@ export const Mutation={
             let data={
                 Text:args.text,
                 USERID:ctx.data._id,
-                POSTID:args.pid
+                POSTID:args.pid,
+                time:args.time
             }
             let comment=new CommentModel(data)
             await comment.save() 
@@ -61,7 +62,7 @@ export const Mutation={
         if(ctx.data){
             let post=await PostModel.findOne({_id:args.id})
             post=post.toJSON()
-            console.log(post)
+            // console.log(post)
             if(!post.Likes.includes(ctx.data._id)){
                 await PostModel.findByIdAndUpdate({_id:args.id},{Likes:[...post.Likes,ctx.data._id]})
                 return {Title:post.title,_id:post._id,Body:post.body,Image:post.image,Likes:[...post.Likes,ctx.data._id],USERID:post.user}
@@ -92,7 +93,7 @@ export const Mutation={
     },
     async follow(parent,args,ctx,info){
         if(ctx.data){
-            console.log(args)
+            // console.log(args)
             let data=await UserDB.findOne({_id:args.id})
             
             let user=data.toJSON()
@@ -108,7 +109,7 @@ export const Mutation={
     },
     async unfollow(parent,args,ctx,info){
         if(ctx.data){
-            console.log(args)
+            // console.log(args)
             let data=await UserDB.findOne({_id:args.id})
             let delind=null
             let user=data.toJSON()
