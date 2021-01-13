@@ -16,6 +16,7 @@ type Mutation {
     follow(id:String!):String!
     unfollow(id:String!):String!
     getPost(id:String!):Post!
+    getUser(email:String!):User!
 }
 
 type User {

@@ -30,6 +30,15 @@ export const Mutation={
             throw new Error("Incorrect Password or Email")
         }
     },
+    async getUser(parent,args,ctx,info){
+        if(ctx.data){
+        let res=await UserDB.findOne({email:args.email})
+        res=res.toJSON()
+        return {Name:res.name,Age:res.Age,email:res.email,_id:res._id,image:res.image}
+    }
+    
+    }
+    ,
     async createPost(parent,args,ctx,info){
         // console.log("HERE")
         if(ctx.data){
