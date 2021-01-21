@@ -6,7 +6,7 @@ export const Query={
     let result=[]
     res.forEach(element => {
         let ele=element.toJSON()
-        result.push({Name:ele.name,Age:ele.Age,email:ele.email,_id:ele._id})
+        result.push({Name:ele.name,Age:ele.Age,email:ele.email,_id:ele._id,image:ele.image})
     });
     return result
     },

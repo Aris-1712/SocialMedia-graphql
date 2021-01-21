@@ -12,7 +12,7 @@ export const Mutation={
         if(find.length>0){
             throw new Error("Email already exists.")
         }
-        let user=new UserDB({...args,password:hashedpass})
+        let user=new UserDB({...args,password:hashedpass,followers:[],following:[]})
         let res=await user.save()
         return {Name:res.name,Age:res.Age,email:res.email,_id:res._id,image:res.image}
     },
@@ -32,7 +32,7 @@ export const Mutation={
     },
     async getUser(parent,args,ctx,info){
         if(ctx.data){
-        let res=await UserDB.findOne({email:args.email})
+        let res=await UserDB.findOne({email:ctx.data.email})
         res=res.toJSON()
         return {Name:res.name,Age:res.Age,email:res.email,_id:res._id,image:res.image}
     }
