@@ -31,6 +31,7 @@ export const Mutation={
         }
     },
     async getUser(parent,args,ctx,info){
+        console.log("HERE")
         if(ctx.data){
         let res=await UserDB.findOne({email:ctx.data.email})
         res=res.toJSON()
