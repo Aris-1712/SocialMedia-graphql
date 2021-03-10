@@ -1,4 +1,5 @@
-
+import dotenv from 'dotenv'
+dotenv.config()
 import {ApolloServer,gql} from 'apollo-server'
 import mongoose from 'mongoose'
 import {Mutation} from './Resolvers/Mutation'

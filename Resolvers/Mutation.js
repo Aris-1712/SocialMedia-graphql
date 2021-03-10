@@ -17,7 +17,9 @@ export const Mutation={
         return {Name:res.name,Age:res.Age,email:res.email,_id:res._id,image:res.image}
     },
     async signin(parent,args,ctx,info){
+        console.log(args)
         let valid=await UserDB.findOne({email:args.email})
+        console.log(valid)
         if(valid){
             let user=valid.toJSON()
             let res=await Bcrypt.compare(args.pass,user.password)
@@ -25,6 +27,7 @@ export const Mutation={
                 throw new Error("Incorrect Password")
             }
             let token=signing({_id:user._id,email:user.email})
+            console.log(token)
             return token
         }else{
             throw new Error("Incorrect Password or Email")
